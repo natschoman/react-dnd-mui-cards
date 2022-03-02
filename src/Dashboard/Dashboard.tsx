@@ -82,12 +82,9 @@ export default function Dashboard() {
         {cards.map((card, index) => (
           <Grid item xs={4} key={card.id}>
             <DragItem key={card.id} card={card} moveCard={moveCard}>
-              <GridItem>
-                <PaperItem>
-                  <div>{card.text}</div>
-                  <div style={{ fontSize: 26 }}>{card.id}</div>
-                </PaperItem>
-              </GridItem>
+              <CardWrapper>
+                <Card card={card} />
+              </CardWrapper>
             </DragItem>
           </Grid>
         ))}
@@ -96,7 +93,7 @@ export default function Dashboard() {
   );
 }
 
-const GridItem = ({ forwardedRef, ...props }: any) => (
+const CardWrapper = ({ forwardedRef, ...props }: any) => (
   <div
     ref={forwardedRef}
     {...props}

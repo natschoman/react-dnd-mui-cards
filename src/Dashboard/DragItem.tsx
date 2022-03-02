@@ -1,10 +1,6 @@
-import React, { useRef, memo, FC } from "react";
-import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
+import React, { useRef, memo } from "react";
 import { Item } from "./Dashboard";
 import { useDrag, useDrop } from "react-dnd";
-import type { XYCoord, Identifier } from "dnd-core";
 import { ItemTypes } from "./itemType";
 
 interface IProps {
@@ -19,7 +15,7 @@ interface IDragItem {
 }
 
 const DragItem = memo(({ card, moveCard, children }: IProps) => {
-  const { text, id } = card;
+  const { id } = card;
   const ref = useRef<HTMLDivElement>(null);
 
   const [{ isDragging }, connectDrag] = useDrag({
@@ -32,11 +28,7 @@ const DragItem = memo(({ card, moveCard, children }: IProps) => {
     }),
   });
 
-  const [{ handlerId }, connectDrop] = useDrop<
-    IDragItem,
-    void,
-    { handlerId: Identifier | null }
-  >({
+  const [, connectDrop] = useDrop<IDragItem, void>({
     accept: ItemTypes.CARD,
     hover(item: IDragItem, monitor) {
       if (item.id !== id) {
